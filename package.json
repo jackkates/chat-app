@@ -1,12 +1,23 @@
 {
   "name": "chat",
   "version": "1.0.0",
-  "description": "Socket-based chat client",
+  "description": "A websocket based chat application with Node.js and Express",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackkates/chat-app.git"
+  },
   "author": "Jack Kates",
-  "license": "ISC"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jackkates/chat-app/issues"
+  },
+  "homepage": "https://github.com/jackkates/chat-app#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
+  }
 }
