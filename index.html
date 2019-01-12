@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+</head>
+<body>
+Messages
+
+<div id="messages_div">
+</div>
+
+
+<input id="input">
+<button id="submit">
+    Send Messages!
+</button>
+
+<script>
+
+    async function getMessages() {
+        var response = await fetch('/messages')
+        var messages = await response.json()
+
+        var div = document.getElementById("messages_div")
+        div.removeChild(div.firstChild)
+        var list = document.createElement('ul')
+        div.appendChild(list)
+        messages.forEach(message => {
+            var list_item = document.createElement("li")
+            var content = document.createTextNode(message)
+            list_item.appendChild(content)
+            list.appendChild(list_item)
+        });
+        
+    }
+
+    async function sendMessage(messageContent) {
+        const options = {
+            method: 'POST',
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify({text: messageContent})
+        }
+        var response = await fetch("/send", options)
+    }
+
+    var socket = io.connect()
+    socket.on("message", () => { 
+        console.log("Socket message")
+        getMessages() 
+    })
+
+    document.getElementById('submit').addEventListener("click", () => {
+        console.log("Clicked")
+        var text = document.getElementById("input").value
+        socket.emit('message')
+        sendMessage(text)
+    })
+
+    getMessages()
+    
+</script>
+</body>
