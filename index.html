@@ -19,16 +19,19 @@ Messages
 
 <script>
 
-    var test = ["Hello"]
+    var anniversary_messages = ["Hi Nikita!", "It's our special day", "It's been a whole year since \
+        we made the great decision to start dating", "I know that it is hard to be apart", "but I believe that we can do it",
+        "and before you know it we'll be together again and we'll laugh and love like old times",
+        "I really believe that I promise!", "I am imagining you looking really cute right now", 
+        "and soon we can eat ramen and promote FocusBuddy together!", 
+        "You are such a great part of my life and I hope you don't forget that",
+        "and I hope you don't forget all the reasons I love you!",
+        "Happy Anniversary", "Love, Jack"];
 
     async function getMessages() {
         var response = await fetch('/messages')
         var messages = await response.json()
 
-        displayMessages(messages)
-    }
-
-    function displayMessages(messages) {
         var div = document.getElementById("messages_div")
         div.removeChild(div.firstChild)
         var list = document.createElement('ul')
@@ -39,7 +42,6 @@ Messages
             list_item.appendChild(content)
             list.appendChild(list_item)
         });
-        
     }
 
     async function sendMessage(messageContent) {
@@ -67,7 +69,15 @@ Messages
     })
 
     document.getElementById('anniversary').addEventListener('click', () => {
-        displayMessages(test)
+        for (var i = 0; i < anniversary_messages.length; i++) {
+            let delay = i*200
+            let message = anniversary_messages[i]
+            console.log(message)
+            setTimeout(() => {
+                socket.emit('message')
+                sendMessage(message)
+            }, delay)
+        }
     })
 
     getMessages()
