@@ -13,13 +13,22 @@ Messages
 <button id="submit">
     Send Messages!
 </button>
+<button id="anniversary">
+    Anniversary Surprise!
+</button>
 
 <script>
+
+    var test = ["Hello"]
 
     async function getMessages() {
         var response = await fetch('/messages')
         var messages = await response.json()
 
+        displayMessages(messages)
+    }
+
+    function displayMessages(messages) {
         var div = document.getElementById("messages_div")
         div.removeChild(div.firstChild)
         var list = document.createElement('ul')
@@ -55,6 +64,10 @@ Messages
         var text = document.getElementById("input").value
         socket.emit('message')
         sendMessage(text)
+    })
+
+    document.getElementById('anniversary').addEventListener('click', () => {
+        displayMessages(test)
     })
 
     getMessages()

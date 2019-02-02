@@ -30,11 +30,13 @@ io.on('connection', (socket) => {
     socket.on('message', () => {
         io.sockets.emit('message')
     })
+
+    socket.on('disconnect', () => {
+        console.log("Socket disconnected.")
+    })
 })
 
-io.on('disconnect', (socket) => {
-    console.log("Socket disconnected.")
-})
+
 
 
 http.listen(port, () => console.log(`Listening on port ${port}.`))
